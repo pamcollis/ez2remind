@@ -1,0 +1,8 @@
+{
+  "name": "ez2remindv3",
+  "app_id": "e380cba4",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

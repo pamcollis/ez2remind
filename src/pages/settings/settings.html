@@ -1,0 +1,108 @@
+
+<ion-header>
+  <ion-navbar padding color="secondary">
+    <button ion-button icon-only menuToggle>
+      <!-- <ion-icon name="menu"></ion-icon> -->
+    </button>
+    <ion-buttons end >          
+          <button class="header-item" ion-button color="primary" (click)="Logout()">Logout</button>
+    </ion-buttons>  
+    <ion-title class="page-title"><ion-icon name="list-box"></ion-icon> User Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+<!-- User Settings -->
+  
+   <ion-list id="settingsForm"  >    
+     <ion-label class="errorMsg" style="color: red;">* indicates Required fields</ion-label> 
+     
+       
+        <ion-grid>
+          <ion-row class="regRow">            
+            <ion-col width-50>
+              <ion-item>
+                    <ion-label class="labelMed" floating><span style="color: red;">*</span>First Name:</ion-label>
+                    <ion-input type="text" name="firstname" [(ngModel)]="newdata.firstName"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col width-50>
+                <ion-item>
+                    <ion-label class="labelMed" floating><span style="color: red;">*</span>Last Name</ion-label>
+                    <ion-input type="text" name="lastname" [(ngModel)]="newdata.lastName"></ion-input>
+                </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>      
+     
+        
+
+      <ion-item>
+        <ion-label class="labelMed" floating><span style="color: red;">*</span>Type in a username</ion-label>
+        <ion-input type="text" name="username" [(ngModel)]="newdata.username"></ion-input>
+      </ion-item>
+      <ion-col width-50>
+                <ion-item>        
+                    <ion-label class="labelMed" floating><span style="color: red;">*</span>Password</ion-label>
+                    <ion-input type="password" name="password" ng-control="password" [(ngModel)]="newdata.password"></ion-input>
+                     
+                </ion-item>
+            </ion-col>
+            <ion-col width-50>
+                <ion-item>        
+                    <ion-label floating><span style="color: red;">*</span>Confirm Password</ion-label>
+                    <ion-input type="password" name="confirmPassword" [(ngModel)]="newdata.confirmPassword"></ion-input>       
+                </ion-item>
+                
+        </ion-col>
+      
+      <ion-item>        
+          <ion-label class="labelMed" floating><span style="color: red;">*</span>Type in your email address</ion-label>
+          <ion-input type="email" name="userEmail" [(ngModel)]="newdata.email"></ion-input>       
+      </ion-item>
+         <ion-label style="color: red;" >{{newdata.invalidEmail}}</ion-label> 
+      <ion-grid>
+          <ion-row class="pRow">
+            <ion-col width-30>
+                <ion-item>        
+                    <ion-label class="colSetL" floating>Phone Number</ion-label>
+                    <ion-input type="tel" mask="(999) 999-9999" name="phoneNumber" [(ngModel)]="newdata.phone"></ion-input>       
+                </ion-item>
+             </ion-col>
+
+             <ion-col width-50>
+                <ion-item >
+                    <ion-label class="colSetR" floating >Phone carrier:</ion-label>
+                    <ion-select [(ngModel)]=newdata.carrier >
+                        <ion-option *ngFor="let carrier of userCarriers" [value]="carrier.id" >{{carrier.name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+             </ion-col>
+          </ion-row>
+      </ion-grid>   
+
+       
+
+        <ion-item>
+            <ion-label class="labelLg" floating><span style="color: red;">*</span>Select your timezone</ion-label>
+            <ion-select [(ngModel)]=newdata.timezone >
+                <ion-option *ngFor="let timezone of userTimezones" [value]="timezone.id" >{{timezone.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label class="labelLg" floating><span style="color: red;">*</span>Select your Country</ion-label>
+            <ion-select [(ngModel)]=newdata.country >
+                <ion-option *ngFor="let country of userCountry"  [value]="country.id" >{{country.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+         <div padding>
+          <button ion-button block (click)="updateUserSettings()">Update Settings</button>
+        </div>
+       
+     
+    </ion-list>
+
+</ion-content>

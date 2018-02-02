@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-navbar padding color="secondary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end >          
+          <button class="header-item" ion-button color="primary" (click)="Logout()">Logout</button>
+    </ion-buttons>  
+    <ion-title>Add Reminder</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="getting-started">
+    
+    <ion-list inset class="add-event">  
+        
+            <ion-item>
+                <ion-label floating>Reminder Name</ion-label>
+                <ion-input type="text" name="eventName"  [(ngModel)]="eventData.eventName" ></ion-input>
+            </ion-item>           
+       
+            <ion-item>
+                <ion-label floating>Reminder Description</ion-label>
+                <ion-input type="text" name="eventDescription"  [(ngModel)]="eventData.eventDescription"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Category:</ion-label>
+              <ion-select [(ngModel)]=eventData.category >
+                   <ion-option *ngFor="let category of categoryList" [value]="category.id" [selected]="category.checked">{{category.title}}</ion-option>
+
+              </ion-select>
+            </ion-item>
+           
+            
+            <!--<p *ngIf="!message.valid && message.touched" danger required>Message is empty</p> -->
+            <ion-item>
+                <ion-label stacked>Start Date</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM/DD/YYYY"  min="{{minDate}}" max="{{maxDateStr}}" name="startDate" (click)="onChangeStartDate()" [(ngModel)]=eventData.startDate></ion-datetime>
+            </ion-item>
+            <ion-navbar color="primary" [hidden]="showCalendar">
+                <ion-title>{{viewTitle}}</ion-title>
+                <ion-buttons end>
+                    <button ion-button [disabled]="isToday" (click)="today()">Today</button>
+                    <button ion-button (click)="changeMode('month')">M</button>
+                    <!--<button ion-button (click)="changeMode('week')">W</button>
+                    <button ion-button (click)="changeMode('day')">D</button>  -->
+                    
+                </ion-buttons>
+            </ion-navbar>
+            <calendar 
+                    [eventSource]="eventSource"
+                    [calendarMode]="calendar.mode"
+                    [currentDate]="calendar.currentDate"
+                    (onCurrentDateChanged)="onCurrentDateChanged($event)"
+                    (onEventSelected)="onEventSelected($event)"
+                    (onTitleChanged)="onViewTitleChanged($event)"
+                    (onTimeSelected)="onTimeSelected($event)"
+                    step="30">
+            </calendar>
+            
+            <ion-item>
+                <ion-label stacked>End Date</ion-label>
+                <ion-datetime #datePicker displayFormat="MM/DD/YYYY" min="{{minDate}}" max="{{maxDateStr}}" name="endDate" [(ngModel)]=eventData.endDate (ionChange)="onChangeEndDate()"></ion-datetime>
+            </ion-item>
+             
+            <button ion-button small color="button-assertive" [hidden]="shouldHide" (click)="clearEndDate()">Clear End Date</button>
+            <ion-item>
+                <ion-label stacked>Event Time</ion-label>
+                <ion-datetime displayFormat="h:mm A" pickerFormat="h:mm A" max="2020" name="eventTime" [(ngModel)]=eventData.eventTime></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Repeat:</ion-label>
+              <ion-select [(ngModel)]=eventData.repeat >
+                   <ion-option *ngFor="let repeat of repeatList" [value]="repeat.id" [selected]="repeat.checked">{{repeat.title}}</ion-option>
+
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Remind When:</ion-label>
+              <ion-select [(ngModel)]=eventData.remindWhen multiple="true">
+                   <ion-option *ngFor="let remind of remindList" [value]="remind.id"  >{{remind.title}}</ion-option>
+
+              </ion-select>
+            </ion-item>
+            <ion-item >
+                <ion-label >Email: {{eventData.email}}</ion-label>
+                <ion-checkbox color="#0404B4"    [(ngModel)]="emailConfirmed" ></ion-checkbox>
+             </ion-item>
+             <ion-item>
+                <ion-label>Telephone: {{eventData.phoneNumber}}</ion-label>
+                <ion-checkbox color="#0404B4"  [(ngModel)]="phoneConfirmed"></ion-checkbox>
+             </ion-item>
+            
+            <button style="font-size: 1.6em;" ion-button block (click)="onSubmit()">
+              <ion-icon name="add" ></ion-icon>&nbsp;  Add New Reminder!
+            </button>
+           
+        
+    </ion-list>
+    <!-- Angular 2 way of doing <p ngShow="myData"> bla bla </p> 
+    
+    <p *ngIf="eventData">
+        You submitted:
+        <br/>Event Name: "<strong>{{ eventData.eventName }}</strong>"
+        <br/> Event Description: "<strong>{{ eventData.eventDescription }}</strong>"
+         <br/> Remind When: "<strong>{{ eventData.remindWhen }}</strong>"
+    </p>   -->
+</ion-content>

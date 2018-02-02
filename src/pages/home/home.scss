@@ -1,0 +1,150 @@
+page-home {
+.home {
+    color:#070808;
+    font-weight: bold;
+    margin-top: 65px;
+    scroll-content {
+        display: flex;
+        flex-direction: column;
+    }
+    ion-grid {
+        padding: 0;
+        height: 100%;
+        
+    }    
+    ion-row {
+        flex: 1;
+        
+    }
+    ion-item {
+        background-color: #F0F0F0 ;
+        border-bottom: 1px solid blue;
+        margin-top: -5px;
+    }
+    
+    
+}
+
+
+.switchBar {
+    color: white;
+    font-size: 1.4em;
+    margin-top: 40px;
+}
+
+.navOption {
+    margin-top: 45px;
+}
+ion-scroll {
+    white-space: nowrap;
+    height: 700px;
+}
+#slogan {
+    position: relative;
+    margin-top: 3px;    
+    padding-left: 40px;
+    font:normal 1em 'Trebuchet MS',Arial,Sans-serif;
+    text-transform:none;
+    color:green; 
+}
+
+.page-title {
+        float: center;
+        font-weight: bold;
+        color:#0404B4; 
+        text-align: center;         
+        margin-top: 15px;
+        font-size: 1.4em
+}
+#imgReminders {
+    margin: 0 auto;
+    margin-left: 50px;
+}
+.link {
+    padding-left: 70px;
+    font-size: .8em;
+}
+.resetLink {
+    font-size: 1em;
+    color: #205E1E;
+    text-decoration: underline;
+    background: none;
+    margin-top: 20px;
+}
+#loginForm {
+    margin-top: 30px;
+    padding: 6px;
+     border: 3px solid #26D02F;
+    border-radius: 3%;
+    ion-label { 
+        color:darkblue; 
+        padding-bottom: 10px;  
+        
+    }
+    ion-input {
+        border-bottom: 1px solid blue;
+        
+    }
+    
+}
+
+#registerForm {
+    border: 3px solid #26D02F;
+    border-radius: 3%;
+    background-color: #F0F0F0 ;
+    ion-label { 
+        color:darkblue; 
+        padding-bottom: 6px;
+    }
+
+    ion-input {
+     margin-bottom: -10px;
+     
+    }
+}
+
+.row-fluid {
+    margin-top: 30px;
+}
+
+.labelLg {
+    font-size: 20px;
+}
+.labelMed {
+    font-size: 18px;
+}
+.labelSm {
+    font-size: .8em;
+}
+.regRow ion-label {    
+    border-bottom: 1px, solid, blue;
+    background-color: #F0F0F0 ;
+}
+.pRow ion-lable {
+    border: 1px, solid, blue;
+    background-color: #F0F0F0 ;    
+}
+.colSetL {
+    padding-right: 8px;
+    border-bottom: 1px, solid, blue;
+    background-color: #F0F0F0; 
+    font-size: 18px; 
+}
+.colSetR {    
+    border-bottom: 1px, solid, blue;
+    background-color: #F0F0F0; 
+    font-size: 18px; 
+    margin-top: -0.5px;
+}
+.errorMsg {
+    color: red;
+    margin-bottom: -15px;
+
+}
+.incomplete {
+    color: red; 
+    text-align: center;
+    text-decoration: underline;
+}
+
+}

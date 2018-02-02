@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar padding color="secondary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end >          
+          <button class="header-item" ion-button color="primary" (click)="Logout()">Logout</button>
+    </ion-buttons>  
+    <ion-title>To Do List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-label class="noItems" [hidden]="!noItems" color="primary">No Items Found in Your ToDo List</ion-label>
+   
+   <ion-row>
+      <ion-label class="l-heading" color="primary">Completed</ion-label>
+      <ion-label class="r-heading" color="primary">Reorder/Delete</ion-label>
+   </ion-row>
+  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
+    <ion-item-sliding *ngFor="let item of checkList; let i = index;" class="home-sliding-item">
+      <ion-item>
+        <ion-row>
+            <ion-col col-3>             
+                <button ion-button item-left  class="itemBtn" (click)="doneItem(item.eventID, true)">Done</button>
+            </ion-col>
+            <ion-col col-9>
+                <h3 class="itemName">{{i+1}}. {{item.eventTitle}}</h3>    
+                <p class="evSummary"> {{item.startDate}}</p>  
+            </ion-col >
+        </ion-row>
+      </ion-item>
+           
+      <ion-item-options>        
+        <button ion-button color="danger" (click)="removeItem(item.eventID)">
+          <ion-icon name="trash"></ion-icon>Delete
+        </button>
+      </ion-item-options>
+ 
+    </ion-item-sliding>
+    
+  </ion-list>
+</ion-content>

@@ -1,0 +1,58 @@
+
+<ion-header>
+  <ion-navbar padding color="secondary">
+    <button ion-button icon-only menuToggle>
+      <!-- <ion-icon name="menu"></ion-icon> -->
+    </button>
+    
+   <ion-buttons end >
+          <!-- <button ion-button icon-only color="primary" (click)="AddEvent()"><ion-icon name="create" ></ion-icon>Add</button> -->
+          <button class="header-item" ion-button color="primary" (click)="Logout()">Logout</button>
+    </ion-buttons>   
+    <ion-title class="page-title"><ion-icon name="list-box"></ion-icon> Reminder List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding  >
+       
+    <!--  List categories in dropdown  -->
+    
+      <ion-item class="categories">
+          <ion-label style="color: blue; padding-left: 10px;">List by Category:</ion-label>
+          <ion-select  [(ngModel)]="category" (ionChange)="selectCategory(category)" >
+              <ion-option *ngFor="let category of categoryList" [value]="category.id" >{{category.title}}</ion-option>
+
+          </ion-select>
+      </ion-item>
+     <ion-item>
+         <label class="info">(*slide item in list to the left to Edit or Delete)</label>
+     </ion-item>
+     
+    <ion-item-group *ngFor="let year of yearList">
+      <ion-item-divider sticky *ngIf="yearData[year.id]?.length > 0">{{year.id}}</ion-item-divider>
+        <ion-item-group *ngFor="let month of monthList">
+          <ion-item-divider style="background-color: #AFBFF1;" class="dividerLine" sticky *ngIf="monthData[month.id + year.id]?.length > 0">{{month.title}}  {{year.id}}</ion-item-divider>
+          <ion-list>
+              <ion-item-sliding  *ngFor="let event of monthData[month.id + year.id]" class="home-sliding-item">
+                <ion-item class="item"  >            
+                  <h2 class="title"><ion-icon class="list-icon" name="leaf"></ion-icon>  {{event.eventTitle}}</h2>
+            
+                  <p class="evSummary"> {{event.eventDesc}} - 
+                      {{event.startDate}}
+                  </p>
+                  <ion-icon item-right name="menu"></ion-icon>
+                </ion-item >
+                <label class="marker"><</label>
+                <ion-item-options  >
+                  
+                  <button ion-button color="favorite"  (click)="editItem(event.eventID)"><ion-icon name="create"></ion-icon>Edit</button>
+                  <button ion-button color="danger"  (click)="removeItem(event.eventID)"><ion-icon name="trash"></ion-icon>Delete</button>
+                </ion-item-options>
+          
+              </ion-item-sliding>   
+            </ion-list>
+        </ion-item-group>
+    </ion-item-group>
+
+</ion-content>

@@ -1,0 +1,58 @@
+page-settings {
+    background-color: #F0F0F0 ;
+}
+#settingsForm {
+    border: 3px solid #26D02F;
+    border-radius: 3%;
+    background-color: #F0F0F0 ;
+    ion-label { 
+        color:darkblue; 
+        padding-bottom: 6px;
+        background-color: #F0F0F0 ;
+    }
+
+    ion-input {
+     margin-bottom: -10px;
+     background-color: #F0F0F0 ;
+    }
+    ion-select {
+        background-color: #F0F0F0 ;
+    }
+    ion-item {
+        background-color: #F0F0F0 ;
+    }
+}
+
+.row-fluid {
+    margin-top: 30px;
+}
+
+.labelLg {
+    font-size: 20px;
+}
+.labelMed {
+    font-size: 18px;
+}
+.labelSm {
+    font-size: .8em;
+}
+.regRow ion-label {    
+    border-bottom: 1px, solid, blue;
+    background-color: #F0F0F0 ;
+}
+.pRow ion-lable {
+    border: 1px, solid, blue;
+    background-color: #F0F0F0 ;    
+}
+.colSetL {
+    padding-right: 8px;
+    border-bottom: 1px, solid, blue;
+    background-color: #F0F0F0; 
+    font-size: 18px; 
+}
+.colSetR {    
+    border-bottom: 1px, solid, blue;
+    background-color: #F0F0F0; 
+    font-size: 18px; 
+    margin-top: -0.5px;
+}

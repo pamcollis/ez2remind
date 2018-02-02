@@ -1,0 +1,163 @@
+
+
+
+<ion-toolbar color="secondary" [attr.primary]="isAndroid ? '' : null" >
+  <ion-segment  [(ngModel)]="authorize" [attr.light]="isAndroid ? '' : null">
+    <ion-segment-button style="font-size: 1.4em; color: white;" value="login" >
+      Login
+    </ion-segment-button>
+    <ion-segment-button style="font-size: 1.4em; color: white;" value="register">
+      Register
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content padding class="home">
+  <div >
+            <img  src="assets/img/Ez2Remind reminders.png" height="57" width="287" alt="Ez2Remind - the handy assistant" />
+              <h5 id="slogan"> - the handy assistant</h5>
+              <h2 class="page-title">Reminders - So Simple, So Easy and Handy!</h2>
+        </div>
+  
+  <div  [ngSwitch]="authorize">
+     
+ 
+   
+    <ion-list *ngSwitchCase="'login'" inset>
+        
+       <div class="row-fluid" id="imgReminders">
+			    <img src="assets/img/ReminderImages lg.jpg" height="110px" width="255px" alt="Don't Forget!" />
+       </div>  
+      <a class="link" href="https://www.ez2remind.com">www.ez2remind.com</a>
+
+       <!-- LOGIN FORM -->
+      <div id="loginForm">
+          <ion-item >
+            <ion-label floating>username</ion-label>
+            <ion-input type="text" name="username"  [(ngModel)]="data.username"></ion-input>
+          </ion-item>            
+            
+          <ion-item >
+            <ion-label floating>password</ion-label>
+            <ion-input type="password" name="password" [(ngModel)]="data.password"></ion-input>
+        
+          </ion-item>   
+       </div>        
+            <ion-label style="color: red;" >{{data.message}}</ion-label> 
+          <button ion-button primary block (click)="submit()" >Login </button>
+          <ion-row>
+              <ion-col>
+                 <button (click)="resetPassword()" class="resetLink">Request a new password</button> 
+              </ion-col>
+          </ion-row>
+
+      
+    </ion-list>
+  
+  <!-- REGISTER FORM -->
+  
+   <ion-list id="registerForm" *ngSwitchCase="'register'" >
+     <ion-label class="errorMsg" style="color: red;">* indicates Required fields</ion-label>
+     <ion-scroll scrollX="true">
+       <p class="incomplete" >{{newdata.message}}</p>
+        <ion-grid>
+          <ion-row class="regRow">
+            
+            <ion-col width-50>
+              <ion-item>
+                    <ion-label class="labelMed" floating><span style="color: red;">*</span>First Name:</ion-label>
+                    <ion-input type="text" name="firstname" [(ngModel)]="newdata.firstName"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col width-50>
+                <ion-item>
+                    <ion-label class="labelMed" floating><span style="color: red;">*</span>Last Name</ion-label>
+                    <ion-input type="text" name="lastname" [(ngModel)]="newdata.lastName"></ion-input>
+                </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>      
+     
+        
+
+      <ion-item>
+        <ion-label class="labelMed" floating><span style="color: red;">*</span>Type in a username</ion-label>
+        <ion-input type="text" name="username" [(ngModel)]="newdata.username"></ion-input>
+      </ion-item>
+
+      <ion-grid>
+          <ion-row class="regRow">
+            <ion-col width-50>
+                <ion-item>        
+                    <ion-label class="labelMed" floating><span style="color: red;">*</span>Password</ion-label>
+                    <ion-input type="password" name="password" ng-control="password" [(ngModel)]="newdata.password"></ion-input>
+                     
+                </ion-item>
+            </ion-col>
+            <ion-col width-50>
+                <ion-item>        
+                    <ion-label floating><span style="color: red;">*</span>Confirm Password</ion-label>
+                    <ion-input type="password" name="confirmPassword" [(ngModel)]="newdata.confirmPassword"></ion-input>       
+                </ion-item>
+                
+           </ion-col>
+           
+          </ion-row>
+          <ion-label style="color: red;" >{{newdata.invalidPassword}}</ion-label> 
+        </ion-grid>  
+
+      <ion-item>        
+          <ion-label class="labelMed" floating><span style="color: red;">*</span>Type in your email address</ion-label>
+          <ion-input type="email" name="userEmail" [(ngModel)]="newdata.email"></ion-input>       
+      </ion-item>
+         <ion-label style="color: red;" >{{newdata.invalidEmail}}</ion-label> 
+      <ion-grid>
+          <ion-row class="pRow">
+            <ion-col width-30>
+                <ion-item>        
+                    <ion-label class="colSetL" floating>Phone Number</ion-label>
+                    <ion-input type="tel" mask="(999) 999-9999" name="phoneNumber" [(ngModel)]="newdata.phoneNumber"></ion-input>       
+                </ion-item>
+             </ion-col>
+
+             <ion-col width-50>
+                <ion-item >
+                    <ion-label class="colSetR" floating >Phone carrier:</ion-label>
+                    <ion-select [(ngModel)]=newdata.carrier >
+                        <ion-option *ngFor="let carrier of userCarriers" [value]="carrier.id" [selected]="carrier.checked">{{carrier.name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+             </ion-col>
+          </ion-row>
+      </ion-grid>   
+
+       
+
+        <ion-item>
+            <ion-label class="labelLg" floating><span style="color: red;">*</span>Select your timezone</ion-label>
+            <ion-select [(ngModel)]=newdata.userZone >
+                <ion-option *ngFor="let timezone of userTimezones" [value]="timezone.id" >{{timezone.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label class="labelLg" floating><span style="color: red;">*</span>Select your Country</ion-label>
+            <ion-select [(ngModel)]=newdata.country >
+                <ion-option *ngFor="let country of userCountry"  [value]="country.id" >{{country.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+         <div padding>
+          <button ion-button block (click)="registerUser()">Register</button>
+        </div>
+       
+     </ion-scroll>
+    </ion-list>
+  </div>
+  <footer>
+      <ion-row>
+              <ion-col>
+                 <button (click)="privacyPolicy()" class="resetLink">Privacy Policy</button> 
+              </ion-col>
+          </ion-row>
+  </footer>
+</ion-content>

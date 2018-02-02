@@ -1,0 +1,83 @@
+page-main {
+    .home {
+    color:#070808;
+    font-weight: bold;
+    font:normal 1em 'Trebuchet MS',Arial,Sans-serif;
+    margin-top: 5px;
+    scroll-content {
+        display: flex;
+        flex-direction: column;
+    }
+    ion-grid {
+        padding: 0;
+        height: 100%;
+        
+    }    
+    ion-row {
+        flex: 1;
+        
+    }
+    ion-item {
+        background-color: #F0F0F0 ;
+        border-bottom: 1px solid blue;
+        margin-top: -5px;
+    }
+    
+    }
+    .page-title {
+            float: center;
+            font-weight: bold;
+            color:#0404B4; 
+            text-align: center;         
+            margin-top: 25px;
+            font-size: 1.4em
+    }
+    .section-title {
+        float: center;
+        font-weight: bold;
+        color:#0404B4; 
+        text-align: center;        
+        width: 100%;
+        font-size: 2.2em;
+    }
+    #slogan {
+        position: relative;
+        margin-top: 3px;    
+        padding-left: 40px;
+        font:normal 1em 'Trebuchet MS',Arial,Sans-serif;
+        text-transform:none;
+        color:green; 
+    }
+    .title {
+        color:#0404B4; 
+    }
+
+    .dailyNotice {
+        position: absolute;
+        float: center;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;       
+        margin-left: -16px;
+        font-size: 1.4em;
+    }
+    .evSummary {
+        color: #080807;
+        padding-left: 60px;
+    }
+    .regRow ion-label {    
+        border-bottom: 1px, solid, blue;
+        background-color: #F0F0F0 ;
+    }
+    .dateLabel {
+        color: green;
+        font-size: 1.1em;
+        padding-left: 30px;
+    }
+    .currentDate {
+        color: darkgreen;        
+        font-weight: bold;
+        text-align: center; 
+    }
+
+}

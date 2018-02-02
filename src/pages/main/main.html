@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar padding color="secondary" >
+      <button ion-button menuToggle>
+       <!-- <ion-icon name="menu"></ion-icon> -->
+      </button>
+       <ion-buttons end >
+          <!-- <button ion-button icon-only color="primary" (click)="AddEvent()"><ion-icon name="create" ></ion-icon>Add</button> -->
+          <button class="header-item" ion-button color="primary" (click)="Logout()">Logout</button>
+    </ion-buttons>   
+      <ion-title>Ez2Remind</ion-title>
+    </ion-navbar>
+
+    
+</ion-header>
+<ion-content padding class="home">
+    <div >
+       <img  src="assets/img/Ez2Remind reminders.png" height="57" width="287" alt="Ez2Remind - the handy assistant" />
+       <h5 id="slogan"> - the handy assistant</h5>
+       <h2 class="page-title">Reminders - So Simple, So Easy and Handy!</h2>
+    </div>
+    <br>
+    <div>
+      <ion-row >            
+            
+            <ion-col  width-80>              
+                <h1 class="currentDate" > {{currDate}}</h1>
+            </ion-col>
+      </ion-row>
+    </div>
+  
+    <h2 class="section-title">Today's Reminders</h2>
+    <ion-list>      
+       <div  *ngIf="subheading != ''">
+              <label class="dailyNotice" >{{subheading}}</label>
+      </div>
+      <ion-item class="item-wrapper" *ngFor="let event of evList" >
+         
+          <ion-item class="item" >            
+              <h2 class="title"><ion-icon class="list-icon" name="leaf"></ion-icon>  {{event.eventTitle}}</h2>
+            
+            <p class="evSummary"> {{event.eventDesc}} - 
+                {{event.startDate}}
+            </p>
+           
+            </ion-item >              
+          
+      </ion-item>   
+    </ion-list>
+
+
+</ion-content>
