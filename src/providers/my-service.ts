@@ -66,16 +66,7 @@ export class MyService {
           .catch(e => console.log(e));
 
       })
-     .catch(e => console.log(e));
-    //return this.db.openDatabase({
-    //  name: 'data.db',
-    //  location: "default"
-    //}).then(() => {      
-    //  this.db.executeSql("CREATE TABLE IF NOT EXISTS v_users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, userId INTEGER)", [])
-    //    .then((data) => {
-    //      console.log('user table created'); }, (error) => { console.log('Unable to create table user'); })        
-   //});
-    }) 
+     .catch(e => console.log(e));    
   }
 
  /* createTable() {

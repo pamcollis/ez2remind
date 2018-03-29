@@ -3,6 +3,12 @@ import { NavController, AlertController } from 'ionic-angular';
 import {MyService} from '../../providers/my-service';
 import { HomePage } from '../home/home';
 
+/* 
+   page displays form fields for user to reset password;
+   username and password values are validated and then sent to
+   server-side code to be updated in database.
+*/
+
 @Component({
   selector: 'page-reset-password',
   templateUrl: 'reset-password.html'
@@ -29,7 +35,7 @@ export class ResetPasswordPage {
 
   ionViewDidLoad() {
     
-    console.log('Hello ResetPassword Page');
+    //console.log('Hello ResetPassword Page');
   }
 
   showAlert(message) {
@@ -59,7 +65,7 @@ export class ResetPasswordPage {
     this.mySvc.sendPassword(username, userEmail)       
       .subscribe(
         (response) => {         
-          console.log("Reset Password Response: " + JSON.stringify(response));
+         // console.log("Reset Password Response: " + JSON.stringify(response));
           this.message =  "Reset password sent to email.";    
           this.showAlert(this.message);
           this.navCtrl.setRoot(HomePage);

@@ -17,8 +17,10 @@ import { Moment } from 'moment';
 import 'rxjs/Rx';
 
 /*
-  Generated class for the Settings page.
+  Settings page displays user information to allow user to update name, password, phone number,
+  carrier, timezone and country
 */
+
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html'
@@ -148,6 +150,7 @@ export class SettingsPage {
   }
 
   updateUserSettings() {
+    // Retrieve form field values
     this.userID = this.mySvc.getUserID();
     this.firstName = this.newdata.firstName;
     this.lastName = this.newdata.lastName;
@@ -197,7 +200,7 @@ export class SettingsPage {
       this.showToast("Blank timezone!");
     }
 
-   
+    // pass values to server-side code to update database
     if (this.validInfo) {
       this.mySvc.updateUser(this.userID, this.firstName, this.lastName, this.username, this.password, this.email, this.phoneNumber, this.carrier,
                     this.timezone, this.country)
@@ -243,20 +246,6 @@ export class SettingsPage {
     alert.present();
   }
 
-  showToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 5000,
-      position: 'center'
-    });
-    
-    console.log("Toast Msg=" + message);
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
-   
-  }
+  
 
 }

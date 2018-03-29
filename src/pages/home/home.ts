@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController, ToastController } from 'ionic-angular';
-
 import { IonicStorageModule } from '@ionic/storage';
 import {FormBuilder,  Validators, AbstractControl } from '@angular/forms';
-//import {CustomValidators} from '../../providers/customvalidators';
 import {AddEventPage} from '../add-event/add-event';
 import {ReminderListPage} from '../reminder-list/reminder-list';
 import {ResetPasswordPage} from '../reset-password/reset-password';
@@ -17,7 +15,8 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Moment } from 'moment';
 import 'rxjs/Rx';
 
-
+//  This page consists of Login form for existing users and a Register form to register new users
+//    using an ngSwitch on the html page
 
 @Component({
   selector: 'page-home',
@@ -146,7 +145,7 @@ export class HomePage {
     }
      this.mySvc.getUsername().then((username) => {
         this.data.username = username;
-        console.log("Username is: " + this.data.username);
+        //console.log("Username is: " + this.data.username);
       });
     
     
@@ -159,21 +158,14 @@ export class HomePage {
     }
   }
 
+  // if existing user, populate username in login form
   ngAfterViewInit() {
-      console.log("AfterViewInit");
+      //console.log("AfterViewInit");
       this.mySvc.getUsername().then((username) => {
         this.data.username = username;
-        console.log("Username is: " + this.data.username);
+        //console.log("Username is: " + this.data.username);
       });
-     // this.mySvc.getDbUser().then((users) => {
-     //       this.user = users;
-        this.user = this.mySvc.getDbUser();
-            console.log("user: " + this.user);
-            //this.data.username = this.user.username;
-            //this.data.password = this.user.password;
-      //};  
-
-      
+           
       
       if (this.isUserLoggedIn) {
         this.data.password = this.user.password;
@@ -207,6 +199,9 @@ export class HomePage {
   }
 
   submit(): void {
+  
+    // Validate username and password form fields for values entered
+    
     this.data.message = "";
     let username = this.data.username;
     let password = this.data.password;
@@ -226,10 +221,13 @@ export class HomePage {
       }
     }
 
-    console.log("Msg= " + this.data.message);
+    //console.log("Msg= " + this.data.message);
     if (this.data.message == "") {
       this.mySvc.username = username;
-
+      
+      // Validate user against database; if valid, retrieve user information else
+      //   display Alert
+      
       this.mySvc.submitLogin(username, password)
         .subscribe(
           (response) => {
@@ -255,7 +253,7 @@ export class HomePage {
            this.navController.setRoot(TabsPage);
           //this.navController.push(ReminderListPage);
         }, (error) => {             
-            console.log("ERROR: ", error);
+            //console.log("ERROR: ", error);
              this.data.message =  "Username or Password is not correct. Please try again.";    
         this.showAlert(this.data.message);  
         });   
@@ -265,6 +263,8 @@ export class HomePage {
   
 
   registerUser() {
+    //  retrieve form field value
+    
     this.firstName = this.newdata.firstName;
     this.lastName = this.newdata.lastName;
     this.username = this.newdata.username;
@@ -329,7 +329,7 @@ export class HomePage {
       this.showAlert("Invalid Email address!");
     }
 
-    console.log("Timezone=" + this.newdata.userZone);
+    //console.log("Timezone=" + this.newdata.userZone);
     if (this.newdata.userZone == ""){
       this.validInfo = false;
       this.message = "Timezone!";
@@ -337,14 +337,7 @@ export class HomePage {
       this.showAlert(this.message);
     }
 
-    //if (!this.firstName || !this.lastName || !this.username || !this.password
-    //    || !this.userEmail || !this.phoneNumber || !this.carrier || !this.timezone || !this.country) {
-   //      // this.validInfo = false;
-   //       this.newdata.message = "***Please complete all Required fields!***";
-   //       console.log("Required fields not all filled in.");
-  //        this.showToast("Required fields not all filled in.");
-   //     }
-
+    //  Once all form field values pass validation checks, pass values to add new user to database
     if (this.validInfo) {
       this.mySvc.registerUser(this.firstName, this.lastName, this.username, this.password, this.email, this.phoneNumber, this.carrier,
                     this.newdata.timezone, this.newdata.country)
@@ -369,28 +362,10 @@ export class HomePage {
     this.navController.push(ResetPasswordPage);
   }
 
-  showToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 5000,
-      position: 'center'
-    });
-    
-    console.log("Toast Msg=" + message);
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
-  }
-
+  
   privacyPolicy() {
     this.navController.push(PrivacyPolicyPage);
   }
         
-       
-        
-  
-
 
 }

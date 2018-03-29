@@ -1,11 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import {MyService} from '../../providers/my-service';
 import {ReminderListPage} from '../reminder-list/reminder-list';
 import { HomePage } from '../home/home';
 import moment from 'moment';
-
-
 
 
 @Component({
@@ -41,6 +39,7 @@ export class AddEventPage {
   showCalendar: boolean = false;
   changeEndDate: boolean = false;
   currDate: string;
+  preselectedDate: string;
   minDate: string = '';
   maxDateStr: string = '';
   maxDate= new Date();
@@ -58,11 +57,13 @@ export class AddEventPage {
     currentEndDate: new Date()    
   };
 
-  constructor(public navController: NavController, public params: NavParams, public alertCtrl: AlertController, public mySvc: MyService,
+  constructor(public navController: NavController, public params: NavParams, 
+            public alertCtrl: AlertController, public mySvc: MyService, private viewCtrl: ViewController
               ) {
     
-    //this.firstName = mySvc.getFirstName();
     
+    this.preselectedDate = moment(this.params.get('selectedDay')).format();
+
     this.users = this.mySvc.getUserInfo();
     this.eventData = {};    
     
@@ -81,13 +82,13 @@ export class AddEventPage {
    // this.eventData.endDate = new Date().toISOString();
     this.calendar.currentDate = new Date();
     
+    
     this.currDate = new Date().toISOString();
     let today = new Date();
     this.minDate = today.toISOString();
     this.maxDate = today;
-    this.maxDate.setFullYear(today.getFullYear()+6);
+    this.maxDate.setFullYear(today.getFullYear()+6);    
     
-    //this.maxDateStr = this.maxDate.toISOString();
     this.maxDateStr = "2023-10-25";
     
     this.categoryList = [
@@ -151,7 +152,11 @@ export class AddEventPage {
     this.eventData.phoneNumber = "";    
     this.emailConfirmed = true;
     this.phoneConfirmed = true;
-    this.eventData.startDate = new Date().toISOString();
+    if (this.preselectedDate != "") {
+      this.eventData.startDate = this.preselectedDate;
+    } else {
+      this.eventData.startDate = new Date().toISOString();
+    }
     this.pickDate = new Date().toISOString();
     this.eventData.endDate = "";
     this.userId = this.mySvc.getUserID();
@@ -161,6 +166,7 @@ export class AddEventPage {
     this.eventData.phoneNumber = this.mySvc.getPhoneNumber();
   }
 
+  //  set initial form field values on page
   ngAfterViewInit() {
     this.eventData = {};    
     
@@ -213,6 +219,7 @@ export class AddEventPage {
   }
   //******************************************************************************************************
   // calendar functions
+  
   loadEvents() {
         this.eventSource = this.createRandomEvents();
     }
@@ -255,6 +262,8 @@ export class AddEventPage {
         this.eventData.endDate = event.toISOString();
         console.log("Change End Date=" + this.eventData.endDate);
     }
+    
+    //  the following code is currently unused by the application
     createRandomEvents() {
         var events = [];
         for (var i = 0; i < 50; i += 1) {
@@ -301,6 +310,7 @@ export class AddEventPage {
     };
     //********************************************************************************************
  
+  //  add new reminder to database; notifications will be set up in server-side code
   onSubmit() {
     if (this.eventData.repeat == "") { this.eventData.repeat = "None"; };
     this.userId = this.mySvc.getUserID();
@@ -334,7 +344,9 @@ export class AddEventPage {
     let remindWhen = this.eventData.remindWhen;    
     let repeat = this.eventData.repeat;  */
     
-
+    // If a recurring reminder type is selected make sure the
+    //  user has selected an EndDate
+    
     // If repeat is not 'none' then check for End Date value
      if (this.repeat != 'None' && this.endDate == "") {
        //create popup message
@@ -342,11 +354,11 @@ export class AddEventPage {
        this.alerted = true;
        console.log("repeat= " + this.repeat);
      }
-     console.log("event time: " + this.eventTime)
+     
+     //console.log("event time: " + this.eventTime)
      if (this.eventTime == undefined) {
-       this.presentAlert('Event Time');
+       this.presentAlert('Event Time must be selected');
        this.alerted = true;
-       console.log("alert for time called");
      }
     //************************************************************
 
@@ -359,7 +371,8 @@ export class AddEventPage {
             console.log("AddEvent Response: " + JSON.stringify(response));
             this.returnedData = response;  
             this.eventData = {};    
-      
+            
+            //  reset form fields
             this.eventData.eventName = "";
             this.eventData.eventDescription = "";    
             this.eventData.remindWhen = "";
@@ -376,12 +389,15 @@ export class AddEventPage {
             this.emailConfirmed = true;
             this.phoneConfirmed = true;
             this.eventData.phoneNumber = this.mySvc.getPhoneNumber();  
+            
+            //Navigate to Reminder List page
             this.navController.setRoot(ReminderListPage);
             
         }, (error) => {             
             console.log("ERROR: ", error);   
         });   
     };
+    
   };
 
   

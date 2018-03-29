@@ -8,11 +8,10 @@ import { HomePage } from '../home/home';
 //import * as moment from 'moment';
 
 /*
-  Generated class for the Main page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
+     displays current date and any existing set reminders for the current date; 
+     if no reminders found for the current date, display line indicating no reminders found
 */
+
 @Component({
   selector: 'page-main',
   templateUrl: 'main.html'
@@ -35,28 +34,27 @@ export class MainPage {
 
   ionViewDidLoad() {
     this.currDate = moment(new Date().toISOString()).format('MMMM DD, YYYY');  
-    this.evList = [];
-    
-    //this.currDate.tz('America/New_York').format('MM/DD/YYYY h:mm a');
-   // moment(this.currDate, 'America/New_York').format('MM/DD/YYYY h:mm a');  
-   moment().locale('en');
+    this.evList = [];   
+     
+    moment().locale('en');
    
     this.userId = this.mySvc.getUserID();
     
-    console.log("Main ionViewDidLoad");
+    //console.log("Main ionViewDidLoad");
 
+    // 
     this.mySvc.getCurrentReminders(this.userId)
         .subscribe(
             (response) => {      
-                       
+                // this.evList is used on the html page to list any current reminders      
                 this.evList = response;  
-                if (this.evList.length == 0) {
+                if (this.evList.length === 0) {
                    this.subheading = "No Reminders Found for Today";
-                   //this.evList.push(this.subheading);
-                   console.log(this.subheading);
+                   
+                   //console.log(this.subheading);
                 } else {
                   this.subheading = '';
-                  console.log("Current Reminders: " + JSON.stringify(response));
+                  //console.log("Current Reminders: " + JSON.stringify(response));
                 }
             }, (error) => {             
                 console.log("ERROR: ", error);
@@ -66,24 +64,22 @@ export class MainPage {
   ionViewDidEnter() {
     this.currDate = moment(new Date().toISOString()).format('MMMM DD, YYYY');  
     this.evList = [];
-    
-    //this.currDate.tz('America/New_York').format('MM/DD/YYYY h:mm a');
-    // moment(this.currDate, 'America/New_York').format('MM/DD/YYYY h:mm a');  
+        
     moment().locale('en');
    
     this.userId = this.mySvc.getUserID();
     
-    console.log("Main - onPageWillEnter");
-
+    //console.log("Main - onPageWillEnter");
+    
     this.mySvc.getCurrentReminders(this.userId)
         .subscribe(
             (response) => {      
-                       
+                // this.evList is used on the html page to list any current reminders         
                 this.evList = response;  
                 if (this.evList.length == 0) {
                    this.subheading = "No Reminders Found for Today";
                    //this.evList.push(this.subheading);
-                   console.log(this.subheading);
+                   //console.log(this.subheading);
                 } else {
                   this.subheading = '';
                   console.log("Current Reminders: " + JSON.stringify(response));

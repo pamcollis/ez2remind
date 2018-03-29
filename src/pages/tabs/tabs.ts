@@ -6,7 +6,6 @@ import { AddEventPage } from '../add-event/add-event';
 import { ReminderListPage } from '../reminder-list/reminder-list';
 import { TodolistPage } from '../todolist/todolist';
 import { SettingsPage } from '../settings/settings';
-import { CalendarPage } from '../calendar/calendar';
 
 /*
   Generated class for the Tabs page.
@@ -23,10 +22,9 @@ export class TabsPage {
   // should be each tab's root Page
   tab1Root: any = MainPage;
   tab2Root: any = ReminderListPage;
-  tab3Root: any = AddEventPage;
-  tab4Root: any = CalendarPage; 
-  tab5Root: any = TodolistPage; 
-  tab6Root: any = SettingsPage;
+  tab3Root: any = AddEventPage;  
+  tab4Root: any = TodolistPage; 
+  tab5Root: any = SettingsPage;
   mySelectedIndex: number;
 
   constructor(navParams: NavParams) {

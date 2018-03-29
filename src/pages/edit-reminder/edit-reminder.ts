@@ -4,12 +4,9 @@ import {MyService} from '../../providers/my-service';
 import {ReminderListPage} from '../reminder-list/reminder-list';
 import moment from 'moment';
 import { MultiPickerModule } from 'ion2-datetime-picker';
-/*
-  Generated class for the EditReminder page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+//This page is for editing individual reminders selected by the user
+
 @Component({
   selector: 'page-edit-reminder',
   templateUrl: 'edit-reminder.html'
@@ -120,6 +117,9 @@ export class EditReminderPage {
     
   }  // end of constructor
 
+  // Load reminder details based on the unique EventId passed to this page
+  //   details will be retrieved from the database using server-side code
+  
   ionViewDidLoad() {
     
     this.userId = this.mySvc.getUserID();    
@@ -142,7 +142,7 @@ export class EditReminderPage {
             this.remData.endDate = this.eventData[0].endDate;
             this.remData.endDate = new Date(this.remData.endDate).toISOString();
           }
-          //this.remData.endData = this.remData.endDate;
+          
           //set time
           this.remData.eventTime = this.eventData[0].startDate;
           this.remData.eventTime = new Date(this.remData.startDate).toISOString();         
@@ -162,7 +162,8 @@ export class EditReminderPage {
           } else {
             this.phoneConfirmed = true;
           }
-        
+         
+          
           this.itemCategory = JSON.stringify(this.eventData[0].category); 
           this.remindTimes = JSON.stringify(this.eventData[0].interval); 
           this.repeatItem = this.eventData[0].repeatType;
@@ -171,35 +172,35 @@ export class EditReminderPage {
           this.remData.remindWhen = this.eventData[0].interval;
           this.remData.repeat = this.eventData[0].repeatType;
          
-         //  Set item category as selected
-
+         //  Set item category as initially selected
          for(this.i = 0; this.i < this.categoryList.length; this.i++) {   
             if(this.itemCategory.indexOf(this.categoryList[this.i].id) > -1) {
               this.categoryList[this.i].selected = "true";
-              console.log(this.categoryList[this.i].title + " selected");
+              //console.log(this.categoryList[this.i].title + " selected");
             }
           }
+          
           //  Set item Remind option as selected
           for(this.i = 0; this.i < this.remindList.length; this.i++) { 
             if(this.remindTimes.indexOf(this.remindList[this.i].id) > -1) {
               this.remindList[this.i].selected = "true";              
-              console.log(this.remindList[this.i].title + " selected");
+              //console.log(this.remindList[this.i].title + " selected");
             }
           }
 
-          //  Set item Repeat option as selected
+          //  Set item Repeat option as selected for recurring reminder
           for(this.i = 0; this.i < this.repeatList.length; this.i++) { 
             if(this.repeatItem.indexOf(this.repeatList[this.i].name) > -1) {
               this.repeatList[this.i].selected = "true";
               this.remData.repeat = this.repeatList[this.i].id;
-              console.log(this.repeatList[this.i].title + " selected");
+              //console.log(this.repeatList[this.i].title + " selected");
             }
           }
           if (this.repeat == 'N') { this.repeat = "none"};
           if (this.repeat == 'n') { this.repeat = "none"};
 
       }, (error) => {             
-          console.log("ERROR: ", error);  
+         //console.log("ERROR: ", error);  
       });    
   }  // end of ionViewDidLoad
 
@@ -212,8 +213,9 @@ export class EditReminderPage {
   }
 
    //******************************************************************************************************
-  // calendar functions
-  loadEvents() {
+   // calendar functions
+  
+    loadEvents() {
         this.eventSource = this.createRandomEvents();
     }
     onViewTitleChanged(title) {
@@ -240,6 +242,8 @@ export class EditReminderPage {
         this.remData.startDate = event.toISOString();
         console.log("Change Start Date=" + this.remData.startDate);
     }
+    
+    //  this functions is not currently being used in the application
     createRandomEvents() {
         var events = [];
         for (var i = 0; i < 50; i += 1) {
@@ -288,6 +292,8 @@ export class EditReminderPage {
   
   
   onSubmit() {
+    // Retrieve values in form fields
+    
     if (this.remData.repeat == "") { this.remData.repeat = "none"; };
     this.userId = this.mySvc.getUserID();
     this.eventName = this.remData.eventName;
@@ -326,6 +332,8 @@ export class EditReminderPage {
     let repeat = this.remData.repeat;
     console.log("PreUpload-remData.repeat=" + this.repeat);
     
+    // pass updated values to server-side code to update any changes to the database and
+    //   make any necessary changes to the notifications
     
     this.mySvc.updateReminder(this.eventId, this.eventName, this.userId, this.eventDesc, this.category, this.startDate, this.endDate, this.eventTime, this.remData.remindWhen, this.remData.repeat, this.emailReminder, this.textReminder)
  

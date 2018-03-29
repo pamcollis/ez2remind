@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import {MyService} from '../../providers/my-service';
+import { MyService } from '../../providers/my-service';
 import { HomePage } from '../home/home';
-import {AddEventPage} from '../add-event/add-event';
-import {EditReminderPage} from '../edit-reminder/edit-reminder';
-import {SettingsPage} from '../settings/settings';
+import { AddEventPage } from '../add-event/add-event';
+import { EditReminderPage } from '../edit-reminder/edit-reminder';
+import { SettingsPage } from '../settings/settings';
 
 
 /*
@@ -41,7 +41,7 @@ export class ReminderListPage {
   selectedCategory = [];
 
   constructor(private navCtrl: NavController, private params: NavParams, public mySvc: MyService, public alertCtrl: AlertController) {
-    //this.users = this.mySvc.getUserInfo();
+    
     this.eventData = {};
     
     this.eventData.eventName = "";
@@ -75,9 +75,9 @@ export class ReminderListPage {
       {id: '07', title: 'July'},
       {id: '08', title: 'August'},
       {id: '09', title: 'September'},
-      {id:'10', title: 'October'},
-      {id:'11', title: 'November'},
-      {id:'12', title: 'December'}
+      {id: '10', title: 'October'},
+      {id: '11', title: 'November'},
+      {id: '12', title: 'December'}
 
     ]
     
@@ -106,25 +106,7 @@ export class ReminderListPage {
 
   }
     
-
- // ngAfterViewInit() {
- //   this.username = this.mySvc.getUsername();
- //   this.userId = this.mySvc.getUserID();
-//    this.category = "all";
-  
-
- //   this.mySvc.getEvents(this.username, this.userId, this.category)
-  //      .subscribe(
- //           (response) => {                 
-  //              this.evList = response;                   
-  //              //console.log("Reminders: " + JSON.stringify(response));
-  //              this.convertData(response); 
-  //              console.log("After convertData");
-  //          }, (error) => {             
- //               console.log("ERROR: ", error);   
- //     });   
-
- // };
+ 
 
   ionViewDidEnter() {
      //******************************************************
@@ -134,18 +116,16 @@ export class ReminderListPage {
           this.monthData = [];
           this.yearData = [];
           this.eventData.eventName = "";
-           this.eventData.eventDescription = "";
-           this.eventData.startDate = "";
+          this.eventData.eventDescription = "";
+          this.eventData.startDate = "";
           this.eventList = "";
-          this.category = "all";
-         // this.username = this.mySvc.getUsername();
-         this.mySvc.getUsername().then((username) => {
+          this.category = "all";         
+          this.mySvc.getUsername().then((username) => {
           this.username = username;          
         });
          
-          this.userId = this.mySvc.getUserID();
-          //this.category = "all";
-         console.log("ReminderList onPageWillEnter");
+          this.userId = this.mySvc.getUserID();         
+          console.log("ReminderList onPageWillEnter");
           this.mySvc.getEvents(this.username, this.userId, this.category)
               .subscribe(
                   (response) => {                 
@@ -165,15 +145,18 @@ export class ReminderListPage {
     this.navCtrl.push(HomePage, {userLoggedIn: false});
   }
 
+  //function invoked when user selects new category from list
   selectCategory(catId: string) {
     this.username = this.mySvc.getUsername();
     this.userId = this.mySvc.getUserID();
     this.category = catId;
     console.log("Cat Chg Parameters: " + this.username + ", " + this.userId + ", " + this.category);
     
+    // create arrays for each month for each of the years in the yearList array
+    //  the arrays will be used to list reminders by month and year
     for (var i=0; i < this.yearList.length; i++) {
       let yr = this.yearList[i].id;
-      console.log("Year=" + yr);
+      
       this.monthData['01' + yr] = [];
       this.monthData['02' + yr] = [];
       this.monthData['03' + yr] = [];
@@ -189,7 +172,8 @@ export class ReminderListPage {
       
     }
 
-    
+    //retrieve reminders from database and then parse each reminder into
+    //  appropriate year/month array by calling convertData function
     
     this.mySvc.getEvents(this.username, this.userId, this.category)
         .subscribe(
@@ -230,9 +214,6 @@ export class ReminderListPage {
     this.username = this.mySvc.getUsername();
     this.userId = this.mySvc.getUserID();
     this.filter = filterId;
-
-    
-
   }
 
   

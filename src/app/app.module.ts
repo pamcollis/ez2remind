@@ -8,15 +8,12 @@ import { Http, HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 
 import { MyService } from '../providers/my-service';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { MainPage } from '../pages/main/main';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AddEventPage } from '../pages/add-event/add-event';
 import { EditReminderPage } from '../pages/edit-reminder/edit-reminder';
 import { ReminderListPage } from '../pages/reminder-list/reminder-list';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { TodolistPage } from '../pages/todolist/todolist';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
@@ -28,16 +25,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
   declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
+    MyApp,   
     HomePage,
     MainPage,
     TabsPage,
     AddEventPage,    
     EditReminderPage,
-    ReminderListPage,
-    CalendarPage,
+    ReminderListPage,    
     TodolistPage,
     ResetPasswordPage,
     PrivacyPolicyPage,

@@ -9,8 +9,9 @@ import {EditReminderPage} from '../edit-reminder/edit-reminder';
 /**
  * Generated class for the TodolistPage page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * lists any reminders set with the category type of todo
+ * users can change the order of their to do items as well as remove
+ *  or mark as completed
  */
 
 @IonicPage()
@@ -98,7 +99,7 @@ export class TodolistPage {
   }
 
   doneItem(eventID, isChecked) {
-    console.log("Done button clicked!");
+    //console.log("Done button clicked!");
     if (isChecked) {
         this.eventID = eventID;    
         this.complete = true;    
