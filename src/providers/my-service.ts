@@ -197,9 +197,7 @@ export class MyService {
   }
 
   submitLogin(username, password): any  {
-   // if (this.logindata) {
-  //    return Promise.resolve(this.logindata);
-   // }
+   
     let data = JSON.stringify({username, password});
     let link = "https://www.ez2remind.com/api.php";
     console.log("LoginData: " + data);
